@@ -90,7 +90,7 @@ document.getElementById('penaltyForm').addEventListener('submit', function (even
     penaltyData.push({ project, slaBreach, penaltyAmount, issues });
   });
 
-  // Updated Render backend URL
+  // Updated backend URL
   fetch('https://backend-1-vwu1.onrender.com/submit-penalty', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

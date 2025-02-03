@@ -90,7 +90,8 @@ document.getElementById('penaltyForm').addEventListener('submit', function (even
     penaltyData.push({ project, slaBreach, penaltyAmount, issues });
   });
 
-  fetch('https://backend-sla.onrender.com/submit-penalty', {
+  // Updated Render backend URL
+  fetch('https://backend-1-vwu1.onrender.com/submit-penalty', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(penaltyData)

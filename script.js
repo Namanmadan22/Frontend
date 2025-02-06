@@ -26,6 +26,7 @@ function createIssueRow() {
   caseInput.type = 'number';
   caseInput.className = 'caseCount';
   caseInput.placeholder = 'Number of Cases';
+  caseInput.min = 1;
 
   issueRow.appendChild(labelIssueType);
   issueRow.appendChild(issueSelect);
@@ -50,6 +51,7 @@ function addBreachRow() {
   penaltyInput.type = 'number';
   penaltyInput.className = 'penaltyAmount';
   penaltyInput.placeholder = 'Penalty Amount';
+  penaltyInput.min = 0;
 
   const issuesContainer = document.createElement('div');
   issuesContainer.className = 'issuesContainer';
@@ -70,8 +72,16 @@ function addBreachRow() {
   breachContainer.appendChild(breachSection);
 }
 
+// Form Submission with Loading Indicator
 document.getElementById('penaltyForm').addEventListener('submit', function (event) {
   event.preventDefault();
+
+  const submitButton = document.getElementById('submitButton');
+  const resultMessage = document.getElementById('result');
+
+  // Disable submit button and show loading message
+  submitButton.disabled = true;
+  resultMessage.innerText = 'Processing... Please wait.';
 
   const project = document.getElementById('project').value;
   const breachSections = document.querySelectorAll('.breach-section');
@@ -90,7 +100,7 @@ document.getElementById('penaltyForm').addEventListener('submit', function (even
     penaltyData.push({ project, slaBreach, penaltyAmount, issues });
   });
 
-  // Updated backend URL
+  // Send data to backend
   fetch('https://backend-1-vwu1.onrender.com/submit-penalty', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -98,9 +108,16 @@ document.getElementById('penaltyForm').addEventListener('submit', function (even
   })
     .then(response => response.json())
     .then(data => {
-      document.getElementById('result').innerText = data.message;
+      resultMessage.innerText = data.message;
+
+      // Reset form on success
+      document.getElementById('penaltyForm').reset();
+      document.getElementById('breachContainer').innerHTML = '';
     })
     .catch(err => {
-      document.getElementById('result').innerText = 'Error submitting penalty data.';
+      resultMessage.innerText = 'Error submitting penalty data.';
+    })
+    .finally(() => {
+      submitButton.disabled = false; // Re-enable submit button
     });
 });

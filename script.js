@@ -1,4 +1,4 @@
-const issueOptions = ['LIFO/FIFO', 'Non Comm', 'RTC Drift and Corrupt', 'Gap Reading Issues', 'Commands get stuck', 'Routing at EP2-54'];
+const issueOptions = ['LIFO/FIFO', 'Non Comm', 'RTC Drift and Corrupt', 'Gap Reading Issues', 'Routing at EP-254','False Magnetic Tampering' , 'LS-DP Missing Cases', 'SLA Dashboard with exceptions', 'Template ID- Garbage Data', 'Gateway Hang', 'Duplicate Meters' , 'NIC Hang', 'Commands get stuck', 'Power Outage' , 'Meters Installed in Scatter Manner', 'RC-DC Fail in less than 6hrs', 'Power Events Missing' , 'ESDS Issue', 'Others' ];
 
 function createSelect(options, className) {
   const select = document.createElement('select');
